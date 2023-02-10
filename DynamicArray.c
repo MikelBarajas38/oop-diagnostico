@@ -34,8 +34,7 @@ void addAtFront(DynamicArray *array, elementType data)
         resizeDynamicArray(array);
     }
 
-
-    for(elementType *iterator = end(array); iterator > begin(array); iterator--) {
+    for(elementType *iterator = end(array); iterator > begin(array); iterator--) { //keep indexing consistent
         *iterator = *(iterator-1);
     }
 
@@ -51,7 +50,8 @@ int size(DynamicArray *array)
 //logical deletion is used instead of physical deletion for better performance [ O(1) vs O(n) ]
 void removeAll(DynamicArray *array) 
 {
-    array->elementCount = 0;
+    freeDynamicArray(array); //prevent memory leaks
+    initDynamicArray(array); //set elementCount to zero
 }
 
 int getAt(DynamicArray *array, int index)
@@ -75,6 +75,7 @@ bool isFull(DynamicArray *array)
     return array->elementCount == array->maxElements;
 }
 
+//doubling the capacity assures a time complexity of O(n)
 void resizeDynamicArray(DynamicArray *array)
 {
     if(array->maxElements > 0) {

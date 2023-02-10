@@ -2,3 +2,5 @@
 .vscode
 vgcore.*
 .idea
+makefile
+main.c
